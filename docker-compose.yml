@@ -1,0 +1,28 @@
+#이것은 우분투 서버 내에서 사용할 compose
+version: "2.19.1"
+
+services:
+  web:
+    image: "registry.xinapse.ai/yhlee/demo_front"
+    container_name: "demo_front"
+    ports:
+      - "3000:80"
+    environment:
+      - REACT_APP_API_URL=http://192.168.1.14
+      - REACT_APP_API_PORT=8080
+  api:
+    image: "registry.xinapse.ai/yhlee/demo"
+    container_name: "demo_backend"
+    ports:
+      - "8080:8080"
+    environment:
+      - spring.datasource.url=jdbc:postgresql://192.168.1.14/testdb
+      - spring.datasource.username=testuser
+      - spring.datasource.password=1234
+  nginx:
+    image: "nginx"
+    container_name: "nginx"
+    ports:
+      - "80:80"
+    volumes:
+      - "/home/ubuntu/demo_front/docker-config/nginx-config:/etc/nginx"
