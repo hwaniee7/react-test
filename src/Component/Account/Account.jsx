@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 
 const API_URL = process.env.REACT_APP_API_URL;
 const API_PORT = process.env.REACT_APP_API_PORT;
-
+const ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
 
 const Account = () => {
@@ -15,7 +15,7 @@ const Account = () => {
             console.log(API_URL);
             console.log(API_PORT);
 
-            const response = await fetch(`${API_URL}:${API_PORT}/account`);
+            const response = await fetch(`${API_URL}${API_PORT}${ENDPOINT}`);
             const account = await response.json();
             console.log(account);
             setAccount(account);

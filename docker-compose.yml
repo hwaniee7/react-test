@@ -3,20 +3,20 @@ version: "2.19.1"
 
 services:
   web:
-    image: "registry.xinapse.ai/yhlee/demo_front"
-    container_name: "demo_front"
+    image: "registry.xinapse.ai/yhlee/demo-front"
+    container_name: "demo-front"
     ports:
       - "3000:80"
     environment:
-      - REACT_APP_API_URL=http://192.168.1.14
+      - REACT_APP_API_URL=http://192.168.1.63
       - REACT_APP_API_PORT=8080
   api:
     image: "registry.xinapse.ai/yhlee/demo"
-    container_name: "demo_backend"
+    container_name: "demo-backend"
     ports:
       - "8080:8080"
     environment:
-      - spring.datasource.url=jdbc:postgresql://192.168.1.14/testdb
+      - spring.datasource.url=jdbc:postgresql://192.168.1.63/testdb
       - spring.datasource.username=testuser
       - spring.datasource.password=1234
   nginx:
@@ -24,5 +24,6 @@ services:
     container_name: "nginx"
     ports:
       - "80:80"
+    platform: "linux/amd64"
     volumes:
       - "/home/ubuntu/demo_front/docker-config/nginx-config:/etc/nginx"
