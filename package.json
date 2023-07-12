@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.4.0",
     "bootstrap": "^5.3.0",
     "cross-env": "^7.0.3",
     "dayjs": "^1.11.8",
@@ -21,7 +22,7 @@
     "webpack-dev-server": "^4.15.1"
   },
   "scripts": {
-    "start": "webpack-dev-server --config config/webpack.config.js && react-scripts start",
+    "start": "webpack-dev-server --config config/webpack.config.js & react-scripts start",
     "local": "ENV_NAME=local webpack-dev-server --config config/webpack.dev.js --open --hot",
     "dev": "ENV_NAME=dev webpack-dev-server --config config/webpack.dev.js --open --hot",
     "prod": "ENV_NAME=prod webpack-dev-server --config config/webpack.prod.js  --open --hot",

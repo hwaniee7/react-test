@@ -1,0 +1,9 @@
+{   
+  "compilerOptions" : {     
+    "target": "es5",     
+    "module": "commonjs",  
+    "strict": true,
+    "esModuleInterop": true,
+    "jsx":"react"   //  '--jsx' 플래그를 제공하지 않으면 JSX를 사용할 수 없습니다.ts(17004) 
+  } 
+}

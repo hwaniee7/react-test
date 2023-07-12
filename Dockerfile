@@ -1,7 +1,7 @@
 FROM node:lts-slim as build-stage
 WORKDIR /app
-ENV REACT_APP_API_URL http://192.168.1.63
-ENV REACT_APP_API_PORT :30004
+ENV REACT_APP_API_URL http://api.account.com
+ENV REACT_APP_API_PORT ''
 ENV REACT_APP_API_ENDPOINT /account
 COPY package*.json ./
 RUN npm ci

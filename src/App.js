@@ -1,7 +1,7 @@
 //import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
-import Account from './Component/Account/Account.jsx';
+import Account from './Component/Account/Account';
 
 function App() {
   return (
