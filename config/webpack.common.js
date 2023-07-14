@@ -43,6 +43,13 @@ module.exports =  {
     new webpack.ProvidePlugin({
       React: 'react',
     }),
+    new webpack.HotModuleReplacementPlugin(),
   ],
+  resolve: {
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    alias: {
+      '@': path.resolve(__dirname, '../src/'),
+    },
+  },
 };
  

@@ -28,26 +28,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(require("react"));
 var reactstrap_1 = require("reactstrap");
-//Hooks
-var AccountFetch_1 = __importDefault(require("./Hooks/AccountFetch"));
 var AccountAxios_1 = __importDefault(require("./Hooks/AccountAxios"));
 var Account = function () {
-    var _a = (0, react_1.useState)(react_1.default.createElement(AccountFetch_1.default, null)), account = _a[0], setAccount = _a[1];
-    var _b = (0, react_1.useState)("fetchButton"), selectedButton = _b[0], setSelectedButton = _b[1];
-    var handleBtnClick = function (param) {
+    var _a = (0, react_1.useState)(react_1.default.createElement(AccountAxios_1.default, null)), account = _a[0], setAccount = _a[1];
+    /* const [ selectedButton, setSelectedButton ] = useState<string>("fetchButton");
+    const handleBtnClick = (param:string):void =>  {
         if (param === "fetchButton") {
-            setAccount(react_1.default.createElement(AccountFetch_1.default, null));
+            setAccount(<AccountFetch/>)
+            setSelectedButton(param);
+        } else if (param === "axiosButton") {
+            setAccount(<AccountAxios/>)
             setSelectedButton(param);
         }
-        else if (param === "axiosButton") {
-            setAccount(react_1.default.createElement(AccountAxios_1.default, null));
-            setSelectedButton(param);
-        }
-    };
+    } */
     return (react_1.default.createElement(react_1.default.Fragment, null,
-        react_1.default.createElement(reactstrap_1.ButtonGroup, null,
-            react_1.default.createElement(reactstrap_1.Button, { color: selectedButton === "fetchButton" ? "primary" : "transparent", onClick: function () { return handleBtnClick("fetchButton"); } }, "Fetch"),
-            react_1.default.createElement(reactstrap_1.Button, { color: selectedButton === "axiosButton" ? "primary" : "transparent", onClick: function () { return handleBtnClick("axiosButton"); } }, "Axios")),
-        account || react_1.default.createElement("h3", null, "\"\uBC84\uD2BC\uC744 \uD074\uB9AD\uD558\uC138\uC694.\"")));
+        react_1.default.createElement(reactstrap_1.Nav, null,
+            react_1.default.createElement(reactstrap_1.NavItem, null,
+                react_1.default.createElement(reactstrap_1.NavLink, { href: "/" }, " \uBA54\uC778\uC73C\uB85C.. "))),
+        account));
 };
 exports.default = react_1.default.memo(Account);

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Button, ButtonGroup, Table } from "reactstrap"
+import { Button, ButtonGroup, Table, NavItem, NavLink, Nav } from "reactstrap"
 import dayjs from "dayjs";
 
 //Hooks
@@ -9,8 +9,9 @@ import AccountAxios from "./Hooks/AccountAxios";
 
 
 const Account = () =>  {
-    const [ account, setAccount ] = useState(<AccountFetch/>);
-    const [ selectedButton, setSelectedButton ] = useState<string>("fetchButton");
+    const [ account, setAccount ] = useState(<AccountAxios/>);
+    
+    /* const [ selectedButton, setSelectedButton ] = useState<string>("fetchButton");
     const handleBtnClick = (param:string):void =>  {
         if (param === "fetchButton") {
             setAccount(<AccountFetch/>)
@@ -19,14 +20,21 @@ const Account = () =>  {
             setAccount(<AccountAxios/>)    
             setSelectedButton(param);
         }
-    }
+    } */
+    
     return (
         <>
-            <ButtonGroup>
+            {/* <ButtonGroup>
                 <Button color={selectedButton ==="fetchButton" ? "primary" : "transparent"} onClick={() => handleBtnClick("fetchButton")}>Fetch</Button>
                 <Button color={selectedButton ==="axiosButton" ? "primary" : "transparent"} onClick={() => handleBtnClick("axiosButton")}>Axios</Button>
-            </ButtonGroup>
-            {account || <h3>"버튼을 클릭하세요."</h3>}
+            </ButtonGroup> */}
+            <Nav>
+                <NavItem>
+                        <NavLink href="/" > 메인으로.. </NavLink>
+                </NavItem>
+            </Nav>
+           
+            {account}
         </>
     );
 }

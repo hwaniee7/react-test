@@ -19,20 +19,23 @@ const AccountAxios:React.FC = () => {
 
     const [ account, setAccount ] = useState<Account[]>([]);
 
-    useEffect(()=>{
-        const fetchAccount = async () => {
-            console.log("This is AccountAxios");            
-            const response = await axios.get(`${API_URL}${API_PORT}${ENDPOINT}`);
-            const account = await response.data
-            console.log(account);
-            setAccount(account);
-        };
-        fetchAccount();
+    useEffect(() =>{
+        console.log("This is AccountAxios");   
+        const axiosAccount = () =>{
+            axios.get(`${API_URL}${API_PORT}${ENDPOINT}`)
+            .then(response => {
+                console.log(response)
+                setAccount(response.data);  
+            })
+            .catch((error)=>{
+                console.log(error)
+            })
+        }
+        axiosAccount();             
     },[])
 
     return (
         <>  
-            <h1>This is called by axios</h1>         
             <Table>
                 <thead>
                     <tr>
