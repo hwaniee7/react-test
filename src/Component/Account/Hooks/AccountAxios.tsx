@@ -1,30 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { Table } from "reactstrap";
-import axios from "axios";
+import Axios, { AxiosResponse} from "axios";
 import dayjs from "dayjs";
 
-const API_URL = process.env.REACT_APP_API_URL;
-const API_PORT = process.env.REACT_APP_API_PORT;
-const ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
+const API_URL:string | undefined = process.env.REACT_APP_API_URL;
+const API_PORT:string | undefined = process.env.REACT_APP_API_PORT;
+const ENDPOINT: string | undefined = process.env.REACT_APP_API_ENDPOINT;
 
+const baseURL: string = (API_URL || '') + (API_PORT || '');
 interface Account {
     userid: number,
     username: string,
     email: string,
-    rdate: Date,
-    lastLogin: Date,
+    rdate: Date | undefined,
+    lastLogin: Date | undefined,
 }
 
 const AccountAxios:React.FC = () => {
-
     const [ account, setAccount ] = useState<Account[]>([]);
-
     useEffect(() =>{
-        console.log("This is AccountAxios");   
-        const axiosAccount = () =>{
-            axios.get(`${API_URL}${API_PORT}${ENDPOINT}`)
-            .then(response => {
-                console.log(response)
+        //console.log("This is AccountAxios");   
+        const axiosAccount = ():void =>{
+            Axios.get<Account[]>(`${baseURL}${ENDPOINT || ''}`)
+            .then((response: AxiosResponse<Account[]>) => {
+                //console.log(response)
                 setAccount(response.data);  
             })
             .catch((error)=>{
@@ -32,8 +31,7 @@ const AccountAxios:React.FC = () => {
             })
         }
         axiosAccount();             
-    },[])
-
+    },[]);
     return (
         <>  
             <Table>
@@ -55,20 +53,19 @@ const AccountAxios:React.FC = () => {
                                 {item.email}
                             </td>
                             <td>
-                                {dayjs(item.rdate).format('YY.MM.DD hh:MM:ss')}
+                                {item.rdate && dayjs(item.rdate).format('YY.MM.DD hh:MM:ss')}
                             </td>
                             <td>
-                                {dayjs(item.lastLogin).format('YY.MM.DD hh:MM:ss')}
+                                {item.lastLogin && dayjs(item.lastLogin).format('YY.MM.DD hh:MM:ss')}
                             </td>
-
                         </tr>
-                    ))}
-                
+                    ))}                
                 </tbody>
+                <tfoot>                    
+                </tfoot>
 
             </Table>
         </>
     );
 }
-
 export default AccountAxios;

@@ -13,19 +13,20 @@ require('dotenv').config(); // Dotenv.config() 대신 require('dotenv').config()
 
 
 module.exports =  {
-  entry: `${path.resolve(__dirname, '../src')}/index.js`,
+  entry: `${path.resolve(__dirname, '../src')}/index.tsx`,
   module: {
     rules: [
       {
-        test: /\.jsx?$/, // .js 또는 .jsx 파일에 로더를 적용
+        test: /\.(js|jsx|ts|tsx)$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-react'],
+            presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
           },
         },
       },
+     
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
@@ -46,7 +47,7 @@ module.exports =  {
     new webpack.HotModuleReplacementPlugin(),
   ],
   resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.css', 'json'],
     alias: {
       '@': path.resolve(__dirname, '../src/'),
     },

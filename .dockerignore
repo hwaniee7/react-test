@@ -1,0 +1,8 @@
+build
+dist
+.husky
+node_modules
+.gitignore
+deploy.yaml
+Dockerfile
+README.md

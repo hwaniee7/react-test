@@ -6,22 +6,22 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import dayjs from "dayjs";
 
-const API_URL = process.env.REACT_APP_API_URL;
-const API_PORT = process.env.REACT_APP_API_PORT;
-const FILES_ENDPOINT = process.env.REACT_APP_API_FILES_ENDPOINT;
-const url = `${API_URL}${API_PORT}${FILES_ENDPOINT}`
+const API_URL:string | undefined = process.env.REACT_APP_API_URL;
+const API_PORT:string | undefined = process.env.REACT_APP_API_PORT;
+const FILES_ENDPOINT:string | undefined = process.env.REACT_APP_API_FILES_ENDPOINT;
+const url:string = (API_URL || '') + (API_PORT || '') + (FILES_ENDPOINT || '');
 
-interface File {
+interface FileInfo {
     fid:number,
     ofname:string,
     fileSize:number,
     fileType:string,
-    rdate:Date,
-    udate:Date,
+    rdate:Date | undefined,
+    udate:Date | undefined,
 }
 
 const FileList:React.FC = () => {
-    const [ fileList, setFileList ] = useState<File[]>([]);
+    const [ fileList, setFileList ] = useState<FileInfo[]>([]);
     const [ pageNum, setPageNum ] = useState<number>(1);
     const [ pageSize, setPageSize ] = useState<number>(0)
     const [ totalCount, setTotalCount ] = useState<number>(0);
@@ -32,12 +32,12 @@ const FileList:React.FC = () => {
         const getFileList = () =>{
             axios.get(`${url}/fileList.do`)
             .then(response => {
-                console.log(response.data)
+                //console.log(response.data)
                 if(response.data){
-                    setFileList(response.data.list.content)
-                    setPageNum(response.data.pageNum+1);
-                    setPageSize(response.data.pageSize);
-                    setTotalCount(response.data.totalCount);
+                    setFileList(response.data.list.content as FileInfo[])
+                    setPageNum(response.data.pageNum as number + 1);
+                    setPageSize(response.data.pageSize as number);
+                    setTotalCount(response.data.totalCount as number);
                 }
             })
             .catch((error)=>{
@@ -51,7 +51,7 @@ const FileList:React.FC = () => {
 
     }, [pageNum, pageSize])
 
-    const SweetAlert = (title:string, content:string, icon:any, showCloseButtonFlag:boolean )=>{
+    const SweetAlert = (title:string, content:string, icon:any, showCloseButtonFlag:boolean ):void=>{
         Swal.fire(
             {
                 title: title,
@@ -63,8 +63,8 @@ const FileList:React.FC = () => {
     }
 
 
-    const paginationItems = [];    
-    for (let i:number = 1; i <= totalPageCount; i++) {       
+    const paginationItems: any[] = [];    
+    for (let i = 1; i <= totalPageCount; i++) {       
         if(i === pageNum) {
             console.log("true");
         } else {
@@ -79,7 +79,7 @@ const FileList:React.FC = () => {
         );
     }
     
-    const chgPage = (pageNum:number, pageSize:number) => {      
+    const chgPage = (pageNum:number, pageSize:number):void => {      
         history(`/files/list?pageNum=${pageNum}&pageSize=${pageSize}`);
     };
 

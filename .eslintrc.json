@@ -1,0 +1,31 @@
+{
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "env": {
+      "browser": true,
+      "node": true
+    },
+    "parserOptions": {
+      "project": ["./tsconfig.json"]
+    },
+    "plugins": ["@typescript-eslint"],
+    "extends": [
+      "eslint:recommended", // eslint 기본 추천 규칙
+      "plugin:@typescript-eslint/recommended", // ts 기본 추천 규칙
+      "plugin:@typescript-eslint/recommended-requiring-type-checking", // 타입 정보를 필요로 하는 특정 규칙들 포함
+      "plugin:react/recommended", // 리액트에 필요한 규칙
+      "plugin:react/jsx-runtime", // react를 import 하지 않아도 되도록 인식하는 규칙
+      "plugin:react-hooks/recommended" // react-hooks에 관한 규칙
+    ],
+    "rules": {
+      "@typescript-eslint/no-misused-promises": "off",
+      "@typescript-eslint/no-unsafe-assignment": "off",
+      "@typescript-eslint/no-var-requires": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off",
+      "@typescript-eslint/no-unsafe-return": "off",
+      "@typescript-eslint/no-floating-promises": "off",
+      "@typescript-eslint/no-unsafe-call": "warn"
+    },
+    "ignorePatterns": ["webpack.common.js", "webpack.dev.js", "webpack.prod.js"]
+  }
+  

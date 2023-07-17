@@ -4,13 +4,13 @@ import { Button, Input, InputGroup, InputGroupText, Nav, NavItem, NavLink } from
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-const API_URL = process.env.REACT_APP_API_URL;
-const API_PORT = process.env.REACT_APP_API_PORT;
-const FILES_ENDPOINT = process.env.REACT_APP_API_FILES_ENDPOINT;
-const url = `${API_URL}${API_PORT}${FILES_ENDPOINT}`
+const API_URL:string | undefined = process.env.REACT_APP_API_URL;
+const API_PORT:string | undefined = process.env.REACT_APP_API_PORT;
+const FILES_ENDPOINT:string | undefined = process.env.REACT_APP_API_FILES_ENDPOINT;
+const url:string = (API_URL || '') + (API_PORT || '') + (FILES_ENDPOINT || '');
 
 const FileInsert:React.FC = () => {    
-    const [ file, setFile ] = useState(null);
+    const [ file, setFile ] = useState<File | null>(null);
     const fileRef = useRef<HTMLInputElement>(null);    
     const navigate = useNavigate();
 
@@ -20,26 +20,25 @@ const FileInsert:React.FC = () => {
         }
     }, [file])
 
-    const handleSelectedFile = (event:any) => {
-        const file = event.target.files[0];        
+    const handleSelectedFile = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];        
         if(file) {
             setFile(file);            
         }
     }
 
-    const onSubmit = (e:any) => {
+    const onSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (!file) {
-            SweetAlert("", "선택된 파일이 없습니다.", 'error',  true);
+            SweetAlert("", "선택된 파일이 없습니다.", 'error',  true)
             return;
-        };
-
+        }
         const formData = new FormData();
         formData.append('file', file);        
      
         axios.post(`${url}/fileUpload.do`, formData)
         .then(response => {            
-            console.log('응답 데이터:', response.data); 
+            //console.log('응답 데이터:', response.data); 
             setFile(null);
             if(fileRef.current){
                 fileRef.current.value = '';

@@ -24,7 +24,7 @@ function App() {
 
         <div className='body-container'>
           <Routes>
-            <Route exact path="/" element={<Main/>} />
+            <Route path="/" element={<Main/>} />
             <Route path="/account" element={<Account/>} />
             <Route path="/files" element={<FileManagement/>} />
             <Route path="/files/insert" element={<FileInsert/>} />
